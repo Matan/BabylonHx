@@ -8,7 +8,12 @@
 	
 	<source path="src" />
 	
-	<set name="webgl" if="html5" />
+	<!-- switch between 'dom' or 'webgl' -->
+	<section if="html5">
+		<haxedef name="dom" />
+		<set name="dom" />
+	</section>
+	
 	<set name="next" />
 			
 	<haxelib name="openfl" />

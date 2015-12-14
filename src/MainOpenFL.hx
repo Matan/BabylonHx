@@ -57,20 +57,17 @@ class MainOpenFL extends Sprite {
 		engine.height = stage.stageHeight;
 		
 		stage.addEventListener(Event.RESIZE, resize);
-		stage.addEventListener(Event.ENTER_FRAME, update);
+		//stage.addEventListener(Event.ENTER_FRAME, update);
 		
-		#if desktop
 		stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 		stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 		stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 		stage.addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
-		#elseif mobile
 		stage.addEventListener(TouchEvent.TOUCH_BEGIN, onTouchStart);
 		stage.addEventListener(TouchEvent.TOUCH_END, onTouchEnd);
 		stage.addEventListener(TouchEvent.TOUCH_MOVE, onTouchMove);
-		#end
 				
 		// hack to show 2D on top of 3D
 		var ground = Mesh.CreateGround("ground1", 0.1, 0.1, 1, scene, false);
@@ -100,8 +97,14 @@ class MainOpenFL extends Sprite {
 			gameWidth = Math.ceil(stageWidth / zoom);
 			gameHeight = Math.ceil(stageHeight / zoom);
 		}
-		
+		var mat = new StandardMaterial("ground", scene);
 		stage.addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
+		
+		var bitmap = new openfl.display.Bitmap (openfl.Assets.getBitmapData ("assets/openfl.png"));
+		addChild (bitmap);
+		
+		bitmap.x = (stage.stageWidth - bitmap.width) / 2;
+		bitmap.y = (stage.stageHeight - bitmap.height) / 2;
 	}
 	
 	function createDemo() {

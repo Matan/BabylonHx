@@ -1,5 +1,8 @@
 package samples;
 
+import com.babylonhx.math.Color3;
+import com.babylonhx.materials.textures.Texture;
+import com.babylonhx.materials.StandardMaterial;
 import com.babylonhx.cameras.FreeCamera;
 import com.babylonhx.lights.HemisphericLight;
 import com.babylonhx.materials.StandardMaterial;
@@ -41,6 +44,14 @@ class BasicScene {
 		
 		// Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
 		var ground = Mesh.CreateGround("ground1", 6, 6, 2, scene);
+		var mat = new StandardMaterial("ground", scene);
+		var texDiff = new Texture("assets/ground.jpg", scene);
+		texDiff.uScale = texDiff.vScale = 10;
+		mat.diffuseTexture = texDiff;
+		mat.specularColor = new Color3(0, 0, 0);
+		ground.material = mat;
+		ground.receiveShadows = true;
+		ground.checkCollisions = true;
 		
 		scene.getEngine().runRenderLoop(function () {
             scene.render();
